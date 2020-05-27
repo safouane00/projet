@@ -8,6 +8,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
+     chimie c;
+
+       physique p;
+
+       ui->tabF->setModel(p.afficher());
+       ui->tabF->setModel(c.afficher());
+
+
 }
 
 MainWindow::~MainWindow()
@@ -16,115 +25,125 @@ MainWindow::~MainWindow()
 }
 
 
+//PHYYYYYYYYYYYSIIIIIIIIIQUUUUUUUUUUUE
+
+
 void MainWindow::on_AfficherF_clicked()
 {
-    ;
-    ui->tabF->setModel(tmpanimaux.afficher());
+    ui->tabF->setModel(tmpphysique.afficher());
 }
 
 void MainWindow::on_SupprimerF_clicked()
 {
-    int idp = ui->idS->text().toInt();
-    bool test=tmpanimaux.supprimer(idp);
+    int id_phy = ui->cinS->text().toInt();
+    bool test=tmpphysique.supprimer(id_phy);
     if(test)
-    {ui->tabF->setModel(tmpanimaux.afficher());
-        QMessageBox::information(nullptr,QObject::tr("Supprimer un animaux"),QObject::tr("animaux supprimer.\n"
+    {ui->tabF->setModel(tmpphysique.afficher());
+        QMessageBox::information(nullptr,QObject::tr("Supprimer un physique"),QObject::tr("physique supprimer.\n"
                                                                                         "Click Cancel to exit."), QMessageBox::Cancel);}
-    ui->idS->clear();
+    ui->cinS->clear();
 }
 
-void MainWindow::on_ModifierF_clicked()
-{
 
+bool MainWindow::verifform1(){
 
+   if(ui->Cinn->text()!="" && ui->Nom->text()!="" && ui->Mail->text()!="" && ui->Prenom->text()!="" && ui->radioButton->isChecked() && !ui->radioButton_2->isChecked())
+   {
+       return true;
+   }
+   if(ui->Cinn->text()!="" && ui->Nom->text()!="" && ui->Mail->text()!="" && ui->Prenom->text()!="" && !ui->radioButton->isChecked() && ui->radioButton_2->isChecked())
+   {
+       return true;
+   }
+   return false;
 
-
-    int id = ui->idp->text().toInt();
-     QString nom= ui->nom->text();
-          int prix= ui->prix->text().toInt();
-          int masse= ui->masse->text().toInt();
-         animaux f;
-         bool test=f.modifier(id,nom,prix,masse);
-       if(test)
-         {
-            ui->tabF->setModel((tmpanimaux.afficher()));//refresh
-            QMessageBox::information(nullptr, QObject::tr("Modifier une animaux !"),
-                              QObject::tr(" animaux modifié ! \n"
-                                          "Click Cancel to exit."), QMessageBox::Cancel);
-         }
-
-         else {
-
-             QMessageBox::critical(nullptr, QObject::tr("Modifier une animaux"),
-                         QObject::tr("Erreur !.\n"
-                                     "Click Cancel to exit."), QMessageBox::Cancel);
-         }
 }
-
 void MainWindow::on_valider_clicked()
 {
-     int id =ui->idp->text().toInt();
-    QString nom=ui->nom->text();
-    int prix=ui->prix->text().toInt();
 
-    int masse =ui->masse->text().toInt();
-    animaux f(id,nom,prix,masse);
-    bool test=f.ajouter();
-    if(test)
-    {ui->tabF->setModel(tmpanimaux.afficher());
-    QMessageBox::information(nullptr,QObject::tr("Ajouter un animaux"),QObject::tr("animaux ajouter.\n"
-                                                                                    "Click Cancel to exit."), QMessageBox::Cancel);}
-     ui->idp->clear();
-    ui->nom->clear();
-    ui->prix->clear();
 
-    ui->masse->clear();
+    if(!verifform1()){
+        QMessageBox::critical(nullptr,QObject::tr("ajout unsuccessful"),QObject::tr("verifier vos parametres.\n"
+                                                                                        "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+    else{
+
+        int id_phy =ui->Cinn->text().toInt();
+        QString nom=ui->Nom->text();
+        QString marque=ui->Prenom->text();
+        QString prix =ui->Mail->text();
+       QString dispo;
+        if(ui->radioButton->isChecked()){
+           dispo="disponible";
+        }
+        else{
+           dispo="nondisponible";
+        }
+
+
+
+
+
+        physique f(id_phy,nom,marque,prix,dispo);
+        bool test=f.ajouter();
+        if(test)
+        {ui->tabF->setModel(tmpphysique.afficher());
+        QMessageBox::information(nullptr,QObject::tr("Ajouter un physique"),QObject::tr("physique ajouter.\n"
+                                                                                        "Click Cancel to exit."), QMessageBox::Cancel);}
+        ui->Cinn->clear();
+        ui->Nom->clear();
+        ui->Prenom->clear();
+        ui->Mail->clear();
+        ui->radioButton->clearMask();
+        ui->radioButton_2->clearMask();
+    }
+
 }
+
+
+//CHIIIIIIIIMIIIIIIIIIIIIIIIIIIIIEEEEEEE
 
 
 void MainWindow::on_AfficherC_clicked()
 {
-    ui->tabC->setModel(tmpnourriture.afficher());
+    ui->tabC->setModel(tmpchimie.afficher());
 }
 
 
 void MainWindow::on_SupprimerC_clicked()
 {
-    int idp = ui->idSC->text().toInt();
-    bool test=tmpnourriture.supprimer(idp);
+    int id_ch = ui->cinSC->text().toInt();
+    bool test=tmpchimie.supprimer(id_ch);
     if(test)
-    {ui->tabC->setModel(tmpnourriture.afficher());
-        QMessageBox::information(nullptr,QObject::tr("Supprimer un nourriture"),QObject::tr("nourriture supprimer.\n"
+    {ui->tabC->setModel(tmpchimie.afficher());
+        QMessageBox::information(nullptr,QObject::tr("Supprimer un chimie"),QObject::tr("chimie supprimer.\n"
                                                                                         "Click Cancel to exit."), QMessageBox::Cancel);}
-    ui->idSC->clear();
+    ui->cinSC->clear();
 }
-
-
-
-
 
 
 
 void MainWindow::on_validerC_clicked()
-{   int id =ui->idpC->text().toInt();
-    QString nom=ui->nomC->text();
+{
+
+    QString nom =ui->NomC->text();
+    QString marque= ui->PrenomC->text();
+    int id_ch =ui->CinnC->text().toInt();
+    QString prix =ui->NumeroC->text();
+    QString quantit =ui->NombreA->text();
 
 
-
-    int quantite =ui->quantiteC->text().toInt();
-
-    nourriture c(id,nom,quantite);
+    chimie c(nom,marque,id_ch,prix,quantit);
     bool test=c.ajouter();
     if(test)
-    {ui->tabC->setModel(tmpnourriture.afficher());
-    QMessageBox::information(nullptr,QObject::tr("Ajouter un nourriture"),QObject::tr("nourriture ajouter.\n"
+    {ui->tabC->setModel(tmpchimie.afficher());
+    QMessageBox::information(nullptr,QObject::tr("Ajouter un chimie"),QObject::tr("chimie ajouter.\n"
                                                                                     "Click Cancel to exit."), QMessageBox::Cancel);}
-    ui->idpC->clear();
-    ui->nomC->clear();
-
-
-
-    ui->quantiteC->clear();
+    ui->NomC->clear();
+    ui->PrenomC->clear();
+    ui->CinnC->clear();
+    ui->NumeroC->clear();
+    ui->NombreA->clear();
 
 }
 
@@ -134,114 +153,99 @@ void MainWindow::on_validerC_clicked()
 
 
 
+void MainWindow::on_tabF_activated(const QModelIndex &index)
+{
+    int a=ui->tabF->model()->data(index).toInt();
+ui->label->setNum(a);
+    QSqlQuery q;
+    q.prepare("select * from physique where id_phy = ?;");
+     q.addBindValue(a);
+     if(q.exec()){
+         while(q.next()){
+             ui->Cinn->setText(q.value(0).toString());
+             ui->Nom->setText(q.value(1).toString());
+             ui->Prenom->setText(q.value(2).toString());
+             ui->Mail->setText(q.value(3).toString());
+
+              if(q.value(4).toString()=="disponible"){
+                  ui->radioButton->setChecked(true);
+                  ui->radioButton_2->setChecked(false);
+              }
+              else
+              {
+                  ui->radioButton->setChecked(false);
+                  ui->radioButton_2->setChecked(true);
+
+              }
+
+
+
+         }
+     }
+}
+
+
+
+void MainWindow::on_ModifierF_clicked()
+{
+    int a=ui->label->text().toInt();
+
+    QString b= ui->Nom->text();
+    QString c= ui->Prenom->text();
+    QString d= ui->Mail->text();
+    QString e;
+    if(ui->radioButton->isChecked()){
+       e="disponible";
+    }
+    else{
+       e="nondisponible";
+    }
+
+    physique o(a,b,c,d,e);
+    if(o.modifier(a)){
+        ui->tabF->setModel(o.afficher());
+
+
+    }
+
+}
+
+void MainWindow::on_tabC_activated(const QModelIndex &index)
+{
+    int a=ui->tabC->model()->data(index).toInt();
+ui->label_2->setNum(a);
+    QSqlQuery q;
+    q.prepare("select * from chimie where id_ch = ?;");
+     q.addBindValue(a);
+     if(q.exec()){
+         while(q.next()){
+             ui->NomC->setText(q.value(0).toString());
+             ui->PrenomC->setText(q.value(1).toString());
+             ui->CinnC->setText(q.value(2).toString());
+             ui->NumeroC->setText(q.value(3).toString());
+              ui->NombreA->setText(q.value(4).toString());
+
+
+
+         }
+     }
+
+}
 
 void MainWindow::on_ModifierC_clicked()
 {
-    int id = ui->idpC->text().toInt();
-     QString nom= ui->nomC->text();
+    int a=ui->label_2->text().toInt();
+
+    QString b= ui->NomC->text();
+    QString c= ui->PrenomC->text();
+    QString d= ui->NumeroC->text();
+    QString e=ui->NombreA->text();
 
 
-          int quantite= ui->quantiteC->text().toInt();
-         nourriture f;
-         bool test=f.modifier(id,nom,quantite);
-       if(test)
-         {
-            ui->tabC->setModel((tmpnourriture.afficher()));//refresh
-            QMessageBox::information(nullptr, QObject::tr("Modifier une nourriture !"),
-                              QObject::tr(" nourriture modifié ! \n"
-                                          "Click Cancel to exit."), QMessageBox::Cancel);
-         }
+    chimie o(b,c,a,d,e);
+    if(o.modifier(a)){
+        ui->tabC->setModel(o.afficher());
 
-         else {
-
-             QMessageBox::critical(nullptr, QObject::tr("Modifier une nourriture"),
-                         QObject::tr("Erreur !.\n"
-                                     "Click Cancel to exit."), QMessageBox::Cancel);
-         }
-
-
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-
-    bool test=true;
-            if(test){
-
-                   { ui->tabF->setModel(tmpanimaux.trier_prix());
-                    QMessageBox::information(nullptr, QObject::tr("trier animaux"),
-                                QObject::tr("animaux trier.\n"
-                                            "Voulez-vous enregistrer les modifications ?"),
-                                       QMessageBox::Save
-                                       | QMessageBox::Cancel,
-                                      QMessageBox::Save);
-    }
-
-                }
-                else
-                    QMessageBox::critical(nullptr, QObject::tr("trier animaux"),
-                                QObject::tr("Erreur !.\n"
-                                            "Click Cancel to exit."), QMessageBox::Cancel);
-}
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    bool test=true;
-            if(test){
-
-                   { ui->tabC->setModel(tmpnourriture.trier_quantite());
-                    QMessageBox::information(nullptr, QObject::tr("trier nourriture"),
-                                QObject::tr("nourriture trier.\n"
-                                            "Voulez-vous enregistrer les modifications ?"),
-                                       QMessageBox::Save
-                                       | QMessageBox::Cancel,
-                                      QMessageBox::Save);
-    }
-
-                }
-                else
-                    QMessageBox::critical(nullptr, QObject::tr("trier plantes"),
-                                QObject::tr("Erreur !.\n"
-                                            "Click Cancel to exit."), QMessageBox::Cancel);
-
-}
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    bool test=true;
-            if(test){
-
-                   { ui->tabF->setModel(tmpanimaux.trier_masse());
-                    QMessageBox::information(nullptr, QObject::tr("trier animaux"),
-                                QObject::tr("animaux trier.\n"
-                                            "Voulez-vous enregistrer les modifications ?"),
-                                       QMessageBox::Save
-                                       | QMessageBox::Cancel,
-                                      QMessageBox::Save);
-    }
-
-                }
-                else
-                    QMessageBox::critical(nullptr, QObject::tr("trier animaux"),
-                                QObject::tr("Erreur !.\n"
-                                            "Click Cancel to exit."), QMessageBox::Cancel);
-}
-
-void MainWindow::on_pushButton_4_clicked()
-{
-
-    {
-        int id = ui->idS->text().toInt();
-       ui->tabF->setModel(tmpanimaux.rechercher(id));
-
-    }
-}
-
-void MainWindow::on_pushButton_5_clicked()
-{
-    {
-        int id = ui->idSC->text().toInt();
-       ui->tabC->setModel(tmpnourriture.rechercher(id));
 
     }
 }

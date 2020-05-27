@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "animaux.h"
-#include "nourriture.h"
+#include "produitph.h"
+#include "produitch.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,11 +18,12 @@ public:
     ~MainWindow();
 
 private slots:
+
     void on_AfficherF_clicked();
 
     void on_SupprimerF_clicked();
 
-
+    bool verifform1();
 
     void on_AfficherC_clicked();
 
@@ -39,21 +40,17 @@ private slots:
 
     void on_ModifierF_clicked();
 
+    void on_tabF_activated(const QModelIndex &index);
+
+
+    void on_tabC_activated(const QModelIndex &index);
+
     void on_ModifierC_clicked();
 
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
-    void on_pushButton_4_clicked();
-
-    void on_pushButton_5_clicked();
-
 private:
+
     Ui::MainWindow *ui;
-    animaux tmpanimaux;
-    nourriture tmpnourriture;
+    physique tmpphysique;
+    chimie tmpchimie;
 };
 #endif // MAINWINDOW_H
