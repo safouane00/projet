@@ -2,8 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "produitph.h"
-#include "produitch.h"
+#include "animaux.h"
+#include "nourriture.h"
+
+
+class QPrinter;
+class QSqlTableModel;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,12 +22,11 @@ public:
     ~MainWindow();
 
 private slots:
-
     void on_AfficherF_clicked();
 
     void on_SupprimerF_clicked();
 
-    bool verifform1();
+
 
     void on_AfficherC_clicked();
 
@@ -40,17 +43,33 @@ private slots:
 
     void on_ModifierF_clicked();
 
-    void on_tabF_activated(const QModelIndex &index);
-
-
-    void on_tabC_activated(const QModelIndex &index);
-
     void on_ModifierC_clicked();
 
-private:
+    void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void print(QPrinter *printer);
+    void print_two_tables(QPrinter *printer);
+    void uglyPrint(QPrinter *printer);
+
+
+    void on_pa_clicked();
+    void print1(QPrinter *printer);
+    void print_two_tables1(QPrinter *printer);
+    void uglyPrint1(QPrinter *printer);
+
+    void on_pa1_clicked();
+
+private:
     Ui::MainWindow *ui;
-    physique tmpphysique;
-    chimie tmpchimie;
+    animaux tmpanimaux;
+    nourriture tmpnourriture;
 };
 #endif // MAINWINDOW_H

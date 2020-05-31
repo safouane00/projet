@@ -353,7 +353,7 @@ void MainWindow::uglyPrint(QPrinter *printer) {
     printB->pageNumber = 1;
     uglyTablePrinter.setPagePrepare(printB);
     QVector<QString> headers = QVector<QString>() << "ID" << "nom" << "quantite" ;
-    uglyPainter.setPen(QPen(Qt::yellow));
+    uglyPainter.setPen(QPen(Qt::blue));
     uglyPainter.drawText(uglyPainter.viewport().width()/2 - 40, 40, "TABLE nourriture");
     uglyPainter.translate(0, 60); // start print point
     uglyTablePrinter.setCellMargin(10, 5, 5);
@@ -445,7 +445,7 @@ void MainWindow::uglyPrint1(QPrinter *printer) {
     printB->pageNumber = 1;
     uglyTablePrinter.setPagePrepare(printB);
     QVector<QString> headers = QVector<QString>() << "ID" << "nom" << "PRIX"<< "MASSE" ;
-    uglyPainter.setPen(QPen(Qt::yellow));
+    uglyPainter.setPen(QPen(Qt::blue));
     uglyPainter.drawText(uglyPainter.viewport().width()/2 - 40, 40, "TABLE animaux");
     uglyPainter.translate(0, 60); // start print point
     uglyTablePrinter.setCellMargin(10, 5, 5);
@@ -465,6 +465,7 @@ void MainWindow::on_pa1_clicked()
     connect(&dialog, SIGNAL(paintRequested(QPrinter*)), this, SLOT(uglyPrint1(QPrinter*)));
     dialog.exec();
 }
+
 
 
 

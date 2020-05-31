@@ -1,4 +1,5 @@
 QT       += core gui sql
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,13 +21,15 @@ SOURCES += \
     connection.cpp \
     main.cpp \
     mainwindow.cpp \
-    nourriture.cpp
+    nourriture.cpp \
+    tableprinter.cpp
 
 HEADERS += \
     animaux.h \
     connection.h \
     mainwindow.h \
-    nourriture.h
+    nourriture.h \
+    tableprinter.h
 
 FORMS += \
     mainwindow.ui

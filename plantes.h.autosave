@@ -1,0 +1,31 @@
+#ifndef PLANTES_H
+#define PLANTES_H
+#include <QString>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
+
+class nouriture
+{
+public:
+    plantes();
+    plantes(int,QString,QString,int);
+    QString get_nom();
+    QString get_typeA();
+    int get_id();
+    int get_quantite();
+    bool ajouter();
+    QSqlQueryModel * afficher();
+    bool supprimer (int);
+    plantes recherche(int);
+
+    bool modifier(int,QString,QString,int);
+    QSqlQueryModel * trier_quantite();
+    QSqlQueryModel * rechercher(int);
+
+
+private:
+    QString nom,typeA;
+    int id,quantite;
+};
+
+#endif // PLANTES_H
