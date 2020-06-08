@@ -27,6 +27,13 @@ bool physique::modifier(int a){
    return query.exec();
 
 }
+QSqlQueryModel * physique::trier()
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+    model->setQuery("select * from physique ORDER BY prix");
+
+     return model;
+}
 
 physique::physique(int id_phy,QString nom,QString marque,QString prix,QString dispo)
 {
@@ -73,6 +80,49 @@ QSqlQueryModel * physique::afficher()
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("DISPO"));
 
     return model;
+}
+QStandardItemModel* physique::chercher(QObject* parent,int a){
+
+
+    QSqlQuery q;
+    q.prepare("select * from physique where id_phy=?;");
+    q.addBindValue(a);
+     int i=0;
+     if(q.exec()){
+         while(q.next()){
+             for(int col=0; col<5 ; col++){
+                 QString a=q.value(i).toString();
+
+             }
+
+
+
+             i++;
+         }
+     }
+
+      QStandardItemModel* model =new QStandardItemModel(i,5,parent);
+  // QSqlQueryModel *model1=new QSqlQueryModel();
+
+    //QStandardItemModel* model =new QStandardItemModel(4,2,this);
+
+    q.prepare("select * from physique where id_phy=?");
+     q.addBindValue(a);
+     i=0;
+     if(q.exec()){
+         while(q.next()){
+             for(int col=0; col<6 ; col++){
+                 QString a=q.value(col).toString();
+                 QModelIndex index=model->index(i,col,QModelIndex());
+                 model->setData(index,a);
+             }
+
+
+
+             i++;
+         }
+     }
+   return model;
 }
 
 bool physique::supprimer(int idd)

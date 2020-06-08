@@ -1,8 +1,5 @@
 <RCC>
-    <qresource prefix="/images">
-        <file>2.jpg</file>
-        <file>ap.jpg</file>
-        <file>b.jpg</file>
-        <file>3.jpg</file>
+    <qresource prefix="/new/prefix1">
+        <file>a.jpg</file>
     </qresource>
 </RCC>

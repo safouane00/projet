@@ -3,6 +3,7 @@
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QStandardItemModel>
 
 class physique
 {
@@ -14,11 +15,13 @@ public:
     int get_id_phy();
     QString get_prix();
       QString get_dispo();
+      QSqlQueryModel * trier();
 
     bool modifier(int);
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer (int);
+     QStandardItemModel* chercher(QObject* parent,int);
     //physique recherche(int);
 
 private:

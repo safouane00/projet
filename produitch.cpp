@@ -8,6 +8,52 @@ chimie::chimie()
     prix="";
     quantit="";
 }
+QStandardItemModel* chimie::chercher(QObject* parent,int a){
+
+
+    QSqlQuery q;
+    q.prepare("select * from chimie where id_ch=?;");
+    q.addBindValue(a);
+     int i=0;
+     if(q.exec()){
+         while(q.next()){
+             for(int col=0; col<5 ; col++){
+                 QString a=q.value(i).toString();
+
+             }
+
+
+
+             i++;
+         }
+     }
+
+      QStandardItemModel* model =new QStandardItemModel(i,5,parent);
+  // QSqlQueryModel *model1=new QSqlQueryModel();
+
+    //QStandardItemModel* model =new QStandardItemModel(4,2,this);
+
+    q.prepare("select * from chimie where id_ch=?");
+     q.addBindValue(a);
+     i=0;
+     if(q.exec()){
+         while(q.next()){
+             for(int col=0; col<6 ; col++){
+                 QString a=q.value(col).toString();
+                 QModelIndex index=model->index(i,col,QModelIndex());
+                 model->setData(index,a);
+             }
+
+
+
+             i++;
+         }
+     }
+   return model;
+
+
+
+}
 
 chimie::chimie(QString nom,QString marque,int id_ch,QString prix,QString  quantit)
 {
@@ -16,6 +62,13 @@ chimie::chimie(QString nom,QString marque,int id_ch,QString prix,QString  quanti
     this->id_ch=id_ch;
     this->quantit=quantit;
     this->prix=prix;
+}
+QSqlQueryModel * chimie::trier()
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+    model->setQuery("select * from chimie ORDER BY prix");
+
+     return model;
 }
 
 QString chimie::get_nom(){return nom;}

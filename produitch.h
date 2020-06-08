@@ -3,6 +3,7 @@
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QStandardItemModel>
 
 class chimie
 {
@@ -12,6 +13,7 @@ public:
     chimie(QString,QString,int,QString,QString);
 
     QString get_marque();
+    QSqlQueryModel * trier();
     QString get_nom();
     int get_id_ch();
     QString  get_prix();
@@ -21,6 +23,7 @@ public:
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer (int);
+    QStandardItemModel* chercher(QObject* parent,int);
 
 private:
 
